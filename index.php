@@ -92,8 +92,16 @@
     $sth->execute();
     $arr = $sth->fetchAll(PDO::FETCH_ASSOC);
     //print_r($arr);
+    if (empty($arr))
+    {
+        $sql = "INSERT INTO objects (name, type) VALUES ('Космос', 'Пустота')";
+        $conn->exec($sql);
+    }
     print "<br><br>";
 
+    $sth = $conn->prepare("SELECT * FROM `objects` ORDER BY `id`");
+    $sth->execute();
+    $arr = $sth->fetchAll(PDO::FETCH_ASSOC);
     //обрабатываем массив, получаем новый массив, но уже со структурой дерева
     $new = array();
 
